@@ -137,6 +137,7 @@ namespace SuperPaintApp
                 }
 
             }
+            
         }
 
         private void Btn_clear_Click(object sender, EventArgs e)
@@ -158,12 +159,7 @@ namespace SuperPaintApp
         private void Btn_save_Click(object sender, EventArgs e)
         {
             var sfd = new SaveFileDialog();
-            sfd.Filter = "Image(*.jpg)|*.jpg|(*.*|*.*'";
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                Bitmap btm = bm.Clone(new Rectangle(0, 0, pic.Width, pic.Height), bm.PixelFormat);
-                btm.Save(sfd.FileName, ImageFormat.Jpeg);
-            }
+            
 
         }
 
@@ -172,17 +168,9 @@ namespace SuperPaintApp
             var ofd = new OpenFileDialog();
             ofd.Filter = "Image(*.jpg)|*.jpg|(*.*|*.*'";
             if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-
+            { 
                     Bitmap bitmap = new Bitmap(ofd.FileName);
                     pic.Image = bitmap;
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show("Error loading image: " + ex.Message);
-                }
                 
             }
 
