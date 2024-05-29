@@ -158,19 +158,28 @@ namespace SuperPaintApp
 
         private void Btn_save_Click(object sender, EventArgs e)
         {
-            var sfd = new SaveFileDialog();
             
+            var sfd = new SaveFileDialog();
+            sfd.Filter = "Image(*.jpg)|*.jpeg|(*.*|*.*'";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap btm = bm;
+                btm.Save(sfd.FileName, ImageFormat.Bmp);
+
+            }
 
         }
 
         private void Btn_load_Click(object sender, EventArgs e)
         {
             var ofd = new OpenFileDialog();
-            ofd.Filter = "Image(*.jpg)|*.jpg|(*.*|*.*'";
+            ofd.Filter = "Image(*.jpg)|*.jpeg|(*.*|*.*'";
             if (ofd.ShowDialog() == DialogResult.OK)
             { 
                     Bitmap bitmap = new Bitmap(ofd.FileName);
                     pic.Image = bitmap;
+                    g = Graphics.FromImage(bitmap);
+                   
                 
             }
 
