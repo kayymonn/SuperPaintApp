@@ -176,9 +176,9 @@ namespace SuperPaintApp
             ofd.Filter = "Image(*.jpg)|*.jpeg|(*.*|*.*'";
             if (ofd.ShowDialog() == DialogResult.OK)
             { 
-                    Bitmap bitmap = new Bitmap(ofd.FileName);
-                    pic.Image = bitmap;
-                    g = Graphics.FromImage(bitmap);
+                    Bitmap bm = new Bitmap(ofd.FileName);
+                    pic.Image = bm;
+                    g = Graphics.FromImage(bm);
                    
                 
             }
