@@ -89,6 +89,17 @@ namespace SuperPaintApp
             {
                 g.DrawLine(p, cX, cY, x, y);
             }
+            if (index == 6)
+            {
+                Point[] points = new Point[]
+                {
+                    new Point(cX, cY),
+                    new Point(cX + sX, cY + sY),
+                    new Point(cX - sX, cY + sY)
+                };
+                g.DrawPolygon(p, points);
+            }
+
 
         }
 
@@ -135,9 +146,19 @@ namespace SuperPaintApp
                 {
                     g.DrawLine(p, cX, cY, x, y);
                 }
+                if (index == 6)
+                {
+                    Point[] points = new Point[]
+                    {
+                        new Point(cX, cY),
+                        new Point(cX + sX, cY + sY),
+                        new Point(cX - sX, cY + sY)
+                    };
+                    g.DrawPolygon(p, points);
+                }
 
             }
-            
+
         }
 
         private void Btn_clear_Click(object sender, EventArgs e)
@@ -158,7 +179,7 @@ namespace SuperPaintApp
 
         private void Btn_save_Click(object sender, EventArgs e)
         {
-            
+
             var sfd = new SaveFileDialog();
             sfd.Filter = "Image(*.jpg)|*.jpeg|(*.*|*.*'";
             if (sfd.ShowDialog() == DialogResult.OK)
@@ -175,14 +196,19 @@ namespace SuperPaintApp
             var ofd = new OpenFileDialog();
             ofd.Filter = "Image(*.jpg)|*.jpeg|(*.*|*.*'";
             if (ofd.ShowDialog() == DialogResult.OK)
-            { 
-                    Bitmap bm = new Bitmap(ofd.FileName);
-                    pic.Image = bm;
-                    g = Graphics.FromImage(bm);
-                   
-                
+            {
+                Bitmap bm = new Bitmap(ofd.FileName);
+                pic.Image = bm;
+                g = Graphics.FromImage(bm);
+
+
             }
 
+        }
+
+        private void Btn_triangle_Click(object sender, EventArgs e)
+        {
+            index = 6;
         }
     }
 }

@@ -41,6 +41,7 @@
             Btn_color = new Button();
             pic_color = new Button();
             pic = new PictureBox();
+            Btn_triangle = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pic).BeginInit();
             SuspendLayout();
@@ -48,6 +49,7 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.ActiveBorder;
+            panel1.Controls.Add(Btn_triangle);
             panel1.Controls.Add(Btn_clear);
             panel1.Controls.Add(Btn_load);
             panel1.Controls.Add(Btn_save);
@@ -219,6 +221,17 @@
             pic.MouseMove += pic_MouseMove;
             pic.MouseUp += pic_MouseUp;
             // 
+            // Btn_triangle
+            // 
+            Btn_triangle.BackColor = SystemColors.AppWorkspace;
+            Btn_triangle.Location = new Point(500, 31);
+            Btn_triangle.Name = "Btn_triangle";
+            Btn_triangle.Size = new Size(52, 44);
+            Btn_triangle.TabIndex = 10;
+            Btn_triangle.Text = "Triangle";
+            Btn_triangle.UseVisualStyleBackColor = false;
+            Btn_triangle.Click += Btn_triangle_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -252,5 +265,6 @@
         private Button Btn_clear;
         private Button pic_Color;
         private Button pic_color;
+        private Button Btn_triangle;
     }
 }
