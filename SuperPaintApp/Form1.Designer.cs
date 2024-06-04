@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panel1 = new Panel();
+            Btn_triangle = new Button();
             Btn_clear = new Button();
             Btn_load = new Button();
             Btn_save = new Button();
@@ -41,7 +42,6 @@
             Btn_color = new Button();
             pic_color = new Button();
             pic = new PictureBox();
-            Btn_triangle = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pic).BeginInit();
             SuspendLayout();
@@ -65,6 +65,17 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(864, 119);
             panel1.TabIndex = 0;
+            // 
+            // Btn_triangle
+            // 
+            Btn_triangle.BackColor = SystemColors.AppWorkspace;
+            Btn_triangle.Location = new Point(500, 31);
+            Btn_triangle.Name = "Btn_triangle";
+            Btn_triangle.Size = new Size(52, 44);
+            Btn_triangle.TabIndex = 10;
+            Btn_triangle.Text = "Triangle";
+            Btn_triangle.UseVisualStyleBackColor = false;
+            Btn_triangle.Click += Btn_triangle_Click;
             // 
             // Btn_clear
             // 
@@ -114,12 +125,12 @@
             Btn_line.Cursor = Cursors.Hand;
             Btn_line.FlatAppearance.MouseDownBackColor = Color.Maroon;
             Btn_line.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
-            Btn_line.Image = Properties.Resources.line;
             Btn_line.ImageAlign = ContentAlignment.TopRight;
             Btn_line.Location = new Point(446, 31);
             Btn_line.Name = "Btn_line";
             Btn_line.Size = new Size(48, 44);
             Btn_line.TabIndex = 6;
+            Btn_line.Text = "Line";
             Btn_line.UseVisualStyleBackColor = false;
             Btn_line.Click += Btn_line_Click;
             // 
@@ -129,12 +140,12 @@
             Btn_rect.Cursor = Cursors.Hand;
             Btn_rect.FlatAppearance.MouseDownBackColor = Color.Maroon;
             Btn_rect.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
-            Btn_rect.Image = Properties.Resources.rectangle;
             Btn_rect.ImageAlign = ContentAlignment.TopRight;
             Btn_rect.Location = new Point(392, 31);
             Btn_rect.Name = "Btn_rect";
             Btn_rect.Size = new Size(48, 44);
             Btn_rect.TabIndex = 5;
+            Btn_rect.Text = "Rect";
             Btn_rect.UseVisualStyleBackColor = false;
             Btn_rect.Click += Btn_rect_Click;
             // 
@@ -144,12 +155,12 @@
             Btn_ellipse.Cursor = Cursors.Hand;
             Btn_ellipse.FlatAppearance.MouseDownBackColor = Color.Maroon;
             Btn_ellipse.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
-            Btn_ellipse.Image = Properties.Resources.circle;
             Btn_ellipse.ImageAlign = ContentAlignment.TopRight;
             Btn_ellipse.Location = new Point(338, 31);
             Btn_ellipse.Name = "Btn_ellipse";
             Btn_ellipse.Size = new Size(48, 44);
             Btn_ellipse.TabIndex = 4;
+            Btn_ellipse.Text = "Circle";
             Btn_ellipse.UseVisualStyleBackColor = false;
             Btn_ellipse.Click += Btn_ellipse_Click;
             // 
@@ -159,12 +170,12 @@
             Btn_eraser.Cursor = Cursors.Hand;
             Btn_eraser.FlatAppearance.MouseDownBackColor = Color.Maroon;
             Btn_eraser.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
-            Btn_eraser.Image = Properties.Resources.eraser;
             Btn_eraser.ImageAlign = ContentAlignment.MiddleRight;
             Btn_eraser.Location = new Point(284, 31);
             Btn_eraser.Name = "Btn_eraser";
             Btn_eraser.Size = new Size(48, 44);
             Btn_eraser.TabIndex = 3;
+            Btn_eraser.Text = "Erase";
             Btn_eraser.UseVisualStyleBackColor = false;
             Btn_eraser.Click += Btn_eraser_Click;
             // 
@@ -174,12 +185,12 @@
             Btn_pencil.Cursor = Cursors.Hand;
             Btn_pencil.FlatAppearance.MouseDownBackColor = Color.Maroon;
             Btn_pencil.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
-            Btn_pencil.Image = Properties.Resources.pencil;
             Btn_pencil.ImageAlign = ContentAlignment.TopRight;
             Btn_pencil.Location = new Point(230, 31);
             Btn_pencil.Name = "Btn_pencil";
             Btn_pencil.Size = new Size(48, 44);
             Btn_pencil.TabIndex = 2;
+            Btn_pencil.Text = "Pen";
             Btn_pencil.UseVisualStyleBackColor = false;
             Btn_pencil.Click += Btn_pencil_Click;
             // 
@@ -189,12 +200,12 @@
             Btn_color.Cursor = Cursors.Hand;
             Btn_color.FlatAppearance.MouseDownBackColor = Color.Maroon;
             Btn_color.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
-            Btn_color.Image = Properties.Resources.color;
             Btn_color.ImageAlign = ContentAlignment.MiddleRight;
             Btn_color.Location = new Point(176, 31);
             Btn_color.Name = "Btn_color";
             Btn_color.Size = new Size(48, 44);
             Btn_color.TabIndex = 1;
+            Btn_color.Text = "Color";
             Btn_color.UseVisualStyleBackColor = false;
             Btn_color.Click += Btn_color_Click;
             // 
@@ -220,17 +231,6 @@
             pic.MouseDown += pic_MouseDown;
             pic.MouseMove += pic_MouseMove;
             pic.MouseUp += pic_MouseUp;
-            // 
-            // Btn_triangle
-            // 
-            Btn_triangle.BackColor = SystemColors.AppWorkspace;
-            Btn_triangle.Location = new Point(500, 31);
-            Btn_triangle.Name = "Btn_triangle";
-            Btn_triangle.Size = new Size(52, 44);
-            Btn_triangle.TabIndex = 10;
-            Btn_triangle.Text = "Triangle";
-            Btn_triangle.UseVisualStyleBackColor = false;
-            Btn_triangle.Click += Btn_triangle_Click;
             // 
             // Form1
             // 
