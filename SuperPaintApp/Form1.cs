@@ -37,6 +37,8 @@ namespace SuperPaintApp
 
             cX = e.X;
             cY = e.Y;
+            sX = 0;
+            sY = 0;
 
         }
 
@@ -59,6 +61,7 @@ namespace SuperPaintApp
                     py = px;
 
                 }
+                
             }
             pic.Refresh();
 
@@ -140,7 +143,7 @@ namespace SuperPaintApp
                 }
                 if (index == 4)
                 {
-                    g.DrawRectangle(p, cX, cY, sX, sY);
+                    g.DrawPolygon(p, new Point[] { new Point(cX, cY), new Point(cX + sX, cY), new Point(cX + sX, cY + sY), new Point(cX, cY + sY) });
                 }
                 if (index == 5)
                 {
@@ -209,6 +212,11 @@ namespace SuperPaintApp
         private void Btn_triangle_Click(object sender, EventArgs e)
         {
             index = 6;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
