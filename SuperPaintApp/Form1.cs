@@ -1,23 +1,12 @@
 using System.Drawing.Imaging;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace SuperPaintApp
 {
     public partial class Form1 : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-            this.Width = 950;
-            this.Height = 700;
-            bm = new Bitmap(pic.Width, pic.Height);
-            g = Graphics.FromImage(bm);
-            g.Clear(Color.White);
-            pic.Image = bm;
-        }
-
-
         Bitmap bm;
         Graphics g;
         bool paint = false;
@@ -29,6 +18,18 @@ namespace SuperPaintApp
 
         ColorDialog cd = new ColorDialog();
         Color new_color;
+        bool firstdialog = true;
+        SaveFileDialog sfd = new SaveFileDialog();
+        bool IsDocumentDirty = false;
+
+        public Form1()
+        {
+            InitializeComponent();
+            bm = new Bitmap(pic.Width, pic.Height);
+            g = Graphics.FromImage(bm);
+            g.Clear(Color.White);
+            pic.Image = bm;
+        }
 
         private void pic_MouseDown(object sender, MouseEventArgs e)
         {
@@ -61,7 +62,7 @@ namespace SuperPaintApp
                     py = px;
 
                 }
-                
+
             }
             pic.Refresh();
 
@@ -71,38 +72,42 @@ namespace SuperPaintApp
             sY = e.Y - cY;
 
 
+
         }
 
         private void pic_MouseUp(object sender, MouseEventArgs e)
         {
+            /* paint = false;
+
+             sX = x - cX;
+             sY = y - cY;
+
+             if (index == 3)
+             {
+                 g.DrawEllipse(p, cX, cY, sX, sY);
+             }
+             if (index == 4)
+             {
+                 g.DrawRectangle(p, cX, cY, sX, sY);
+             }
+             if (index == 5)
+             {
+                 g.DrawLine(p, cX, cY, x, y);
+             }
+             if (index == 6)
+             {
+                 Point[] points = new Point[]
+                 {
+                     new Point(cX, cY),
+                     new Point(cX + sX, cY + sY),
+                     new Point(cX - sX, cY + sY)
+                 };
+                 g.DrawPolygon(p, points);
+             }*/
             paint = false;
 
-            sX = x - cX;
-            sY = y - cY;
-
-            if (index == 3)
-            {
-                g.DrawEllipse(p, cX, cY, sX, sY);
-            }
-            if (index == 4)
-            {
-                g.DrawRectangle(p, cX, cY, sX, sY);
-            }
-            if (index == 5)
-            {
-                g.DrawLine(p, cX, cY, x, y);
-            }
-            if (index == 6)
-            {
-                Point[] points = new Point[]
-                {
-                    new Point(cX, cY),
-                    new Point(cX + sX, cY + sY),
-                    new Point(cX - sX, cY + sY)
-                };
-                g.DrawPolygon(p, points);
-            }
-
+            DrawObject(g);
+            IsDocumentDirty = true;
 
         }
 
@@ -129,40 +134,52 @@ namespace SuperPaintApp
         private void Btn_line_Click(object sender, EventArgs e)
         {
             index = 5;
+
         }
 
         private void pic_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
-
             if (paint)
             {
-                if (index == 3)
+                Graphics previewg = e.Graphics;
+                DrawObject(previewg);
+            }
+
+
+
+        }
+
+        private void DrawObject(Graphics previewg)
+        {
+
+
+
+            if (index == 3)
+            {
+                previewg.DrawEllipse(p, cX, cY, sX, sY);
+            }
+            if (index == 4)
+            {
+                previewg.DrawPolygon(p, new Point[] { new Point(cX, cY), new Point(cX + sX, cY), new Point(cX + sX, cY + sY), new Point(cX, cY + sY) });
+            }
+            if (index == 5)
+            {
+                previewg.DrawLine(p, cX, cY, x, y);
+            }
+            if (index == 6)
+            {
+                Point[] points = new Point[]
                 {
-                    g.DrawEllipse(p, cX, cY, sX, sY);
-                }
-                if (index == 4)
-                {
-                    g.DrawPolygon(p, new Point[] { new Point(cX, cY), new Point(cX + sX, cY), new Point(cX + sX, cY + sY), new Point(cX, cY + sY) });
-                }
-                if (index == 5)
-                {
-                    g.DrawLine(p, cX, cY, x, y);
-                }
-                if (index == 6)
-                {
-                    Point[] points = new Point[]
-                    {
                         new Point(cX, cY),
                         new Point(cX + sX, cY + sY),
                         new Point(cX - sX, cY + sY)
-                    };
-                    g.DrawPolygon(p, points);
-                }
-
+                };
+                previewg.DrawPolygon(p, points);
             }
 
+
         }
+
 
         private void Btn_clear_Click(object sender, EventArgs e)
         {
@@ -173,6 +190,7 @@ namespace SuperPaintApp
 
         private void Btn_color_Click(object sender, EventArgs e)
         {
+            //TODO: dodelat if
             cd.ShowDialog();
             new_color = cd.Color;
             pic_color.BackColor = cd.Color;
@@ -182,16 +200,26 @@ namespace SuperPaintApp
 
         private void Btn_save_Click(object sender, EventArgs e)
         {
-
-            var sfd = new SaveFileDialog();
-            sfd.Filter = "Image(*.jpg)|*.jpeg|(*.*|*.*'";
-            if (sfd.ShowDialog() == DialogResult.OK)
+            if (firstdialog == true)
             {
-                Bitmap btm = bm;
-                btm.Save(sfd.FileName, ImageFormat.Bmp);
+                if (pic.Image != null)
+                {
+                    sfd.Filter = "Image(*.jpg)|*.jpeg|(*.*|*.*'";
+                    sfd.FileName = "image.jpg";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        firstdialog = false;
+
+
+                    }
+                }
 
             }
-
+            Bitmap btm = bm;
+            btm.Save(sfd.FileName, ImageFormat.Bmp);
+            pic.Image = btm;
+            IsDocumentDirty = false;
         }
 
         private void Btn_load_Click(object sender, EventArgs e)
@@ -217,6 +245,28 @@ namespace SuperPaintApp
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void Btn_new_Click(object sender, EventArgs e)
+        {
+            g.Clear(Color.White);
+            firstdialog = true;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+          if(IsDocumentDirty)
+            {
+                DialogResult result = MessageBox.Show("Do you want to save changes?", "Warning", MessageBoxButtons.YesNoCancel);
+                if (result == DialogResult.Yes)
+                {
+                    Btn_save_Click(sender, e);
+                }
+                else if (result == DialogResult.Cancel)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

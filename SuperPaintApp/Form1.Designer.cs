@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             panel1 = new Panel();
+            Btn_new = new Button();
             Btn_triangle = new Button();
             Btn_clear = new Button();
             Btn_load = new Button();
@@ -50,6 +51,7 @@
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = SystemColors.ActiveBorder;
+            panel1.Controls.Add(Btn_new);
             panel1.Controls.Add(Btn_triangle);
             panel1.Controls.Add(Btn_clear);
             panel1.Controls.Add(Btn_load);
@@ -65,6 +67,20 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(864, 119);
             panel1.TabIndex = 0;
+            // 
+            // Btn_new
+            // 
+            Btn_new.BackColor = SystemColors.AppWorkspace;
+            Btn_new.FlatAppearance.MouseDownBackColor = Color.Maroon;
+            Btn_new.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
+            Btn_new.ImageAlign = ContentAlignment.TopRight;
+            Btn_new.Location = new Point(602, 37);
+            Btn_new.Name = "Btn_new";
+            Btn_new.Size = new Size(58, 47);
+            Btn_new.TabIndex = 11;
+            Btn_new.Text = "New";
+            Btn_new.UseVisualStyleBackColor = false;
+            Btn_new.Click += Btn_new_Click;
             // 
             // Btn_triangle
             // 
@@ -244,6 +260,7 @@
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Paint";
+            FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pic).EndInit();
@@ -267,5 +284,6 @@
         private Button pic_Color;
         private Button pic_color;
         private Button Btn_triangle;
+        private Button Btn_new;
     }
 }
