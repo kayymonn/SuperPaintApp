@@ -43,6 +43,8 @@
             Btn_color = new Button();
             pic_color = new Button();
             pic = new PictureBox();
+            Btn_undo = new Button();
+            Btn_redo = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pic).BeginInit();
             SuspendLayout();
@@ -51,6 +53,8 @@
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = SystemColors.ActiveBorder;
+            panel1.Controls.Add(Btn_redo);
+            panel1.Controls.Add(Btn_undo);
             panel1.Controls.Add(Btn_new);
             panel1.Controls.Add(Btn_triangle);
             panel1.Controls.Add(Btn_clear);
@@ -74,7 +78,7 @@
             Btn_new.FlatAppearance.MouseDownBackColor = Color.Maroon;
             Btn_new.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
             Btn_new.ImageAlign = ContentAlignment.TopRight;
-            Btn_new.Location = new Point(602, 37);
+            Btn_new.Location = new Point(602, 69);
             Btn_new.Name = "Btn_new";
             Btn_new.Size = new Size(58, 47);
             Btn_new.TabIndex = 11;
@@ -99,7 +103,7 @@
             Btn_clear.FlatAppearance.MouseDownBackColor = Color.Maroon;
             Btn_clear.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
             Btn_clear.ImageAlign = ContentAlignment.TopRight;
-            Btn_clear.Location = new Point(666, 36);
+            Btn_clear.Location = new Point(666, 69);
             Btn_clear.Name = "Btn_clear";
             Btn_clear.Size = new Size(58, 47);
             Btn_clear.TabIndex = 9;
@@ -113,7 +117,7 @@
             Btn_load.FlatAppearance.MouseDownBackColor = Color.Maroon;
             Btn_load.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
             Btn_load.ImageAlign = ContentAlignment.TopRight;
-            Btn_load.Location = new Point(730, 36);
+            Btn_load.Location = new Point(730, 69);
             Btn_load.Name = "Btn_load";
             Btn_load.Size = new Size(58, 47);
             Btn_load.TabIndex = 8;
@@ -127,7 +131,7 @@
             Btn_save.FlatAppearance.MouseDownBackColor = Color.Maroon;
             Btn_save.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
             Btn_save.ImageAlign = ContentAlignment.TopRight;
-            Btn_save.Location = new Point(794, 36);
+            Btn_save.Location = new Point(794, 69);
             Btn_save.Name = "Btn_save";
             Btn_save.Size = new Size(58, 47);
             Btn_save.TabIndex = 7;
@@ -217,7 +221,7 @@
             Btn_color.FlatAppearance.MouseDownBackColor = Color.Maroon;
             Btn_color.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
             Btn_color.ImageAlign = ContentAlignment.MiddleRight;
-            Btn_color.Location = new Point(133, 36);
+            Btn_color.Location = new Point(133, 37);
             Btn_color.Name = "Btn_color";
             Btn_color.Size = new Size(58, 47);
             Btn_color.TabIndex = 1;
@@ -247,6 +251,34 @@
             pic.MouseDown += pic_MouseDown;
             pic.MouseMove += pic_MouseMove;
             pic.MouseUp += pic_MouseUp;
+            // 
+            // Btn_undo
+            // 
+            Btn_undo.BackColor = SystemColors.AppWorkspace;
+            Btn_undo.FlatAppearance.MouseDownBackColor = Color.Maroon;
+            Btn_undo.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
+            Btn_undo.ImageAlign = ContentAlignment.TopRight;
+            Btn_undo.Location = new Point(794, 16);
+            Btn_undo.Name = "Btn_undo";
+            Btn_undo.Size = new Size(58, 47);
+            Btn_undo.TabIndex = 12;
+            Btn_undo.Text = "Undo";
+            Btn_undo.UseVisualStyleBackColor = false;
+            Btn_undo.Click += Btn_undo_Click;
+            // 
+            // Btn_redo
+            // 
+            Btn_redo.BackColor = SystemColors.AppWorkspace;
+            Btn_redo.FlatAppearance.MouseDownBackColor = Color.Maroon;
+            Btn_redo.FlatAppearance.MouseOverBackColor = Color.FromArgb(128, 64, 64);
+            Btn_redo.ImageAlign = ContentAlignment.TopRight;
+            Btn_redo.Location = new Point(730, 16);
+            Btn_redo.Name = "Btn_redo";
+            Btn_redo.Size = new Size(58, 47);
+            Btn_redo.TabIndex = 13;
+            Btn_redo.Text = "Redo";
+            Btn_redo.UseVisualStyleBackColor = false;
+            Btn_redo.Click += Btn_redo_Click;
             // 
             // Form1
             // 
@@ -285,5 +317,7 @@
         private Button pic_color;
         private Button Btn_triangle;
         private Button Btn_new;
+        private Button Btn_redo;
+        private Button Btn_undo;
     }
 }

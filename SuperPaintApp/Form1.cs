@@ -22,6 +22,9 @@ namespace SuperPaintApp
         SaveFileDialog sfd = new SaveFileDialog();
         bool IsDocumentDirty = false;
 
+        Stack<Bitmap> undoStack = new Stack<Bitmap>();
+        Stack<Bitmap> redoStack = new Stack<Bitmap>();
+
         public Form1()
         {
             InitializeComponent();
@@ -70,45 +73,18 @@ namespace SuperPaintApp
             y = e.Y;
             sX = e.X - cX;
             sY = e.Y - cY;
-
-
-
         }
 
         private void pic_MouseUp(object sender, MouseEventArgs e)
         {
-            /* paint = false;
-
-             sX = x - cX;
-             sY = y - cY;
-
-             if (index == 3)
-             {
-                 g.DrawEllipse(p, cX, cY, sX, sY);
-             }
-             if (index == 4)
-             {
-                 g.DrawRectangle(p, cX, cY, sX, sY);
-             }
-             if (index == 5)
-             {
-                 g.DrawLine(p, cX, cY, x, y);
-             }
-             if (index == 6)
-             {
-                 Point[] points = new Point[]
-                 {
-                     new Point(cX, cY),
-                     new Point(cX + sX, cY + sY),
-                     new Point(cX - sX, cY + sY)
-                 };
-                 g.DrawPolygon(p, points);
-             }*/
             paint = false;
 
             DrawObject(g);
             IsDocumentDirty = true;
 
+            // Save the current state of the bitmap for undo
+            undoStack.Push((Bitmap)bm.Clone());
+            redoStack.Clear();
         }
 
         private void Btn_pencil_Click(object sender, EventArgs e)
@@ -134,7 +110,6 @@ namespace SuperPaintApp
         private void Btn_line_Click(object sender, EventArgs e)
         {
             index = 5;
-
         }
 
         private void pic_Paint(object sender, PaintEventArgs e)
@@ -144,16 +119,10 @@ namespace SuperPaintApp
                 Graphics previewg = e.Graphics;
                 DrawObject(previewg);
             }
-
-
-
         }
 
         private void DrawObject(Graphics previewg)
         {
-
-
-
             if (index == 3)
             {
                 previewg.DrawEllipse(p, cX, cY, sX, sY);
@@ -170,16 +139,13 @@ namespace SuperPaintApp
             {
                 Point[] points = new Point[]
                 {
-                        new Point(cX, cY),
-                        new Point(cX + sX, cY + sY),
-                        new Point(cX - sX, cY + sY)
+                                new Point(cX, cY),
+                                new Point(cX + sX, cY + sY),
+                                new Point(cX - sX, cY + sY)
                 };
                 previewg.DrawPolygon(p, points);
             }
-
-
         }
-
 
         private void Btn_clear_Click(object sender, EventArgs e)
         {
@@ -190,12 +156,10 @@ namespace SuperPaintApp
 
         private void Btn_color_Click(object sender, EventArgs e)
         {
-            //TODO: dodelat if
             cd.ShowDialog();
             new_color = cd.Color;
             pic_color.BackColor = cd.Color;
             p.Color = cd.Color;
-
         }
 
         private void Btn_save_Click(object sender, EventArgs e)
@@ -210,12 +174,10 @@ namespace SuperPaintApp
                     if (sfd.ShowDialog() == DialogResult.OK)
                     {
                         firstdialog = false;
-
-
                     }
                 }
-
             }
+
             Bitmap btm = bm;
             btm.Save(sfd.FileName, ImageFormat.Bmp);
             pic.Image = btm;
@@ -231,10 +193,7 @@ namespace SuperPaintApp
                 Bitmap bm = new Bitmap(ofd.FileName);
                 pic.Image = bm;
                 g = Graphics.FromImage(bm);
-
-
             }
-
         }
 
         private void Btn_triangle_Click(object sender, EventArgs e)
@@ -255,7 +214,7 @@ namespace SuperPaintApp
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-          if(IsDocumentDirty)
+            if (IsDocumentDirty)
             {
                 DialogResult result = MessageBox.Show("Do you want to save changes?", "Warning", MessageBoxButtons.YesNoCancel);
                 if (result == DialogResult.Yes)
@@ -268,5 +227,40 @@ namespace SuperPaintApp
                 }
             }
         }
+
+        private void Btn_redo_Click(object sender, EventArgs e)
+        {
+            if (redoStack.Count > 0)
+            {
+                Bitmap redoBitmap = redoStack.Pop();
+                undoStack.Push((Bitmap)bm.Clone());
+                bm = redoBitmap;
+                g = Graphics.FromImage(bm);
+                pic.Image = bm;
+                pic.Refresh();
+            }
+        }
+
+        private void Btn_undo_Click(object sender, EventArgs e)
+        {
+            if (undoStack.Count > 1)
+            {
+                Bitmap undoBitmap = undoStack.Pop();
+                redoStack.Push((Bitmap)bm.Clone());
+                bm = undoStack.Peek();
+                g = Graphics.FromImage(bm);
+                pic.Image = bm;
+                pic.Refresh();
+            }
+            else if (undoStack.Count == 1)
+            {
+                Bitmap undoBitmap = undoStack.Pop();
+                redoStack.Push((Bitmap)bm.Clone());
+                g.Clear(Color.White);
+                pic.Image = bm;
+                pic.Refresh();
+            }
+        }
     }
+
 }
